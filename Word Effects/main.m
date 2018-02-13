@@ -25,8 +25,11 @@ int main(int argc, const char * argv[]) {
             // convert char array to an NSString object
             NSString *inputString = [NSString stringWithUTF8String:inputChars];
             
+            // remove /n
+            NSString *strippedString = [inputString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            
             // print NSString object
-            NSLog(@"Input was: %@", inputString);
+            NSLog(@"Input was: %@", strippedString);
             
             
             
@@ -45,19 +48,19 @@ int main(int argc, const char * argv[]) {
             switch (numberChosen) {
                 case 1: {
                     // 1. UPPERCASE
-                    NSString *upperCased = [inputString uppercaseString];
+                    NSString *upperCased = [strippedString uppercaseString];
                     NSLog(@"%@", upperCased);
                     break;
                 }
                 case 2: {
                     // 2. lowercase
-                    NSString *lowerCased = [inputString lowercaseString];
+                    NSString *lowerCased = [strippedString lowercaseString];
                     NSLog(@"%@", lowerCased);
                     break;
                 }
                 case 3: {
                     // 3. Numberize // if possible, convert string to number *problem atm. will convert non-numbers to "0"
-                    int numberized = [inputString intValue];
+                    int numberized = [strippedString intValue];
                     if (!numberized) {
                         NSLog(@"That was not a valid number");
                     } else {
@@ -68,16 +71,18 @@ int main(int argc, const char * argv[]) {
                 }
                 case 4: {
                     // 4. Canadianize // append , eh? to it
-                    NSString *canadianized = [inputString stringByAppendingString:@", eh?"];
+                    NSString *canadianized = [strippedString stringByAppendingString:@", eh?"];
                     NSLog(@"%@", canadianized);
                     break;
                 }
                 case 5: {
                     // 5. Respond // if ends with ?, say I don't know. If !, respond whoa, calm down!
-                    if ([inputString hasSuffix:@"?"]) {
+                    NSString *questionMark = @"?";
+                    NSString *exclaimationMark = @"!";
+                    if ([strippedString hasSuffix:questionMark]) {
                         NSLog(@"I don't know");
                     }
-                    else if ([inputString hasSuffix:@"!"]) {
+                    else if ([strippedString hasSuffix:exclaimationMark]) {
                         NSLog(@"Whoa, calm down!");
                     } else {
                         NSLog(@"No drama");
@@ -86,7 +91,7 @@ int main(int argc, const char * argv[]) {
                 }
                 case 6: {
                     // 6. De-Space-It. // replace all space to ---
-                    NSString *dashDashDash = [inputString stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+                    NSString *dashDashDash = [strippedString stringByReplacingOccurrencesOfString:@" " withString:@"-"];
                     
                     NSLog(@"%@", dashDashDash);
                     break;
